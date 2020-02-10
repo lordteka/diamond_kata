@@ -36,6 +36,9 @@ var Diamond [26]string = [26]string {
 	"Z                                                 Z",
 }
 
+var a byte = 'a'
+var z byte = 'z'
+
 func add_reverse(diamond []string) []string {
 	for i := len(diamond) - 2; i >= 0; i-- {
 		diamond = append(diamond, diamond[i])
@@ -44,10 +47,9 @@ func add_reverse(diamond []string) []string {
 }
 
 func make_diamond(letter byte) (string) {
-	var c byte = 'A'
 	var diamond []string
-	stop := int(letter) - int(c)
-	start := int('Z') - int(letter)
+	stop := int(letter) - int(a)
+	start := int(z) - int(letter)
 
 	for i := 0; i <= stop ; i++ {
 		diamond = append(diamond, Diamond[i][start:])
@@ -75,6 +77,10 @@ func main() {
 	if err != nil {
 		fmt.Println(err)
 		return
+	}
+	if letter >= 'A' && letter <= 'Z' {
+		a = 'A'
+		z = 'Z'
 	}
 	println(make_diamond(letter))
 }
