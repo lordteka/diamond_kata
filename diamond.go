@@ -2,6 +2,7 @@ package main
 
 import (
 //	"fmt"
+	"os"
 	"strings"
 )
 
@@ -41,7 +42,7 @@ func add_reverse(diamond []string) []string {
 	return diamond
 }
 
-func makeDiamond(letter byte) (string) {
+func make_diamond(letter byte) (string) {
 	var c byte = 'A'
 	var diamond []string
 	stop := int(letter) - int(c)
@@ -53,6 +54,11 @@ func makeDiamond(letter byte) (string) {
 	return strings.Join(add_reverse(diamond), "\n")
 }
 
-func main() {
+func get_arg() byte {
+	//arg = os.Arg[1:]
+	return byte(os.Args[1][0])
+}
 
+func main() {
+	println(make_diamond(get_arg()))
 }
