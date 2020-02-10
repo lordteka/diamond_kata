@@ -1,8 +1,9 @@
 package main
 
 import (
-//	"fmt"
+	"fmt"
 	"os"
+	"errors"
 	"strings"
 )
 
@@ -54,11 +55,26 @@ func make_diamond(letter byte) (string) {
 	return strings.Join(add_reverse(diamond), "\n")
 }
 
-func get_arg() byte {
-	//arg = os.Arg[1:]
-	return byte(os.Args[1][0])
+func get_arg() (byte, error) {
+	if len(os.Args[1:]) != 1 {
+		return 0, errors.New("Bad number of argument : one argument is expected")
+	}
+	arg := os.Args[1]
+	if len(arg) > 1 {
+		return 0, errors.New("Bad argument : expected a letter")
+	}
+	letter := arg[0]
+	if (letter < 'A' || letter > 'Z') && (letter < 'a' || letter > 'z') {
+		return 0, errors.New("Bad argument : expected a letter")
+	}
+	return letter, nil
 }
 
 func main() {
-	println(make_diamond(get_arg()))
+	letter, err := get_arg()
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	println(make_diamond(letter))
 }
